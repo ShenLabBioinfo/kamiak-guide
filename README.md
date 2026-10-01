@@ -67,11 +67,11 @@ Simply follow the instructions again for creating a key, this time with 2027
 
 Delete the old private key `rm ~/.ssh/jeremy_2026_key`
 
-## IDE Recommendations
+## Windows WSL > PuTTY
 
-- Mac
-- Windows
-- Linux
+PuTTY is unneccessary for SSH now that [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) supports installation of Ubuntu.
+
+WSL does not support virtual environments like KVM/QEMU or Docker, but is otherwise a nearly fully-featured "Linux on Windows".
 
 ## Using Git
 
