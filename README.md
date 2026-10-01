@@ -95,3 +95,8 @@ Shen Labs uses GitHub for codebase storage, and GitHub features an automation so
 `.github/workflows/slurm_job.yml`
 
 `.github/workflows/slurm_job_tty.yml`
+
+
+# If you try, others will stop you
+
+I made a github runner today, and it was killed.
