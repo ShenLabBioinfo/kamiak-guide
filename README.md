@@ -71,7 +71,7 @@ Delete the old private key `rm ~/.ssh/jeremy_2026_key`
 
 PuTTY is unneccessary for SSH now that [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) supports installation of Ubuntu.
 
-WSL does not support virtual environments like KVM/QEMU or Docker, but is otherwise a nearly fully-featured "Linux on Windows".
+WSL does not support virtual environments like KVM/QEMU or Docker, but is otherwise a nearly fully-featured "Linux Shell on Windows".
 
 ## Using Git
 
@@ -84,4 +84,14 @@ managing secrets
 
 ## GitHub Runner
 
-i want to set up some kind of cicd for github to run jobs from github into a 'runner' on kamiak
+Shen Labs uses GitHub for codebase storage, and GitHub features an automation solution called GitHub Actions. When code is pushed to a repo in GitHub, a set of commands can automatically be executed on Kamiak.
+
+1. ***NEVER*** run CPU intense jobs on the login node!
+1. Escalated priviledge is not available on Kamiak. 
+
+### Example YAMLs
+`.github/workflows/login_node.yml`
+
+`.github/workflows/slurm_job.yml`
+
+`.github/workflows/slurm_job_tty.yml`
