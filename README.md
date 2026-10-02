@@ -9,7 +9,9 @@ create and show drawing comparison
 
 ## SSH Config with Key Access
 
-***Never*** share your private key to anyone for any reason. The `.pub` file is meant to be shared.
+***Never*** share your private key to anyone for any reason.
+
+The `.pub` file is meant to be shared.
 
 ```
 # example private key file
@@ -37,7 +39,7 @@ touch ~/.ssh/config
 chmod 600 ~/.ssh/config
 ```
 
-### example config for GitHub and Kamiak
+### example ~/.ssh/config
 ```
 Host github.com
     HostName github.com
@@ -50,11 +52,32 @@ Host kamiak
     User jeremy.banks
     IdentityFile ~/.ssh/jeremy_2026_key
     IdentitiesOnly yes
+
+Host kamiak-p3n01
+    HostName login-p3n01.kamiak.wsu.edu
+    User jeremy.banks
+    IdentityFile ~/.ssh/jeremy_key
+    IdentitiesOnly yes
+
+Host kamiak-p3n02
+    HostName login-p3n02.kamiak.wsu.edu
+    User jeremy.banks
+    IdentityFile ~/.ssh/jeremy_key
+    IdentitiesOnly yes
+
+Host kamiak-p3n03
+    HostName login-p3n03.kamiak.wsu.edu
+    User jeremy.banks
+    IdentityFile ~/.ssh/jeremy_key
+    IdentitiesOnly yes
 ```
 
 ### sharing your pub file with kamiak
 ```
 ssh-copy-id -i ~/.ssh/YOUR_NAME_2026.pub kamiak
+ssh-copy-id -i ~/.ssh/YOUR_NAME_2026.pub kamiak-p3n01
+ssh-copy-id -i ~/.ssh/YOUR_NAME_2026.pub kamiak-p3n02
+ssh-copy-id -i ~/.ssh/YOUR_NAME_2026.pub kamiak-p3n03
 ```
 
 ### Rotating 
@@ -63,13 +86,11 @@ Key pairs are not meant to be used indefinitely! National Institute of Standards
 
 `... a maximum cryptoperiod of about one to three years is recommended. A private signature key shall be destroyed at the end of its cryptoperiod.`
 
-Simply follow the instructions again for creating a key, this time with 2027
-
-Delete the old private key `rm ~/.ssh/jeremy_2026_key`
+Simply follow the instructions again for creating a key, this time using 2027 as the year. Delete the old private key `rm ~/.ssh/jeremy_2026_key`
 
 ## Windows WSL > PuTTY
 
-PuTTY is unneccessary for SSH now that [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) supports installation of Ubuntu.
+Although the Kamiak Quick Guides mention this, I think it bears repeating. PuTTY is unneccessary for SSH now that [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) supports installation of Ubuntu.
 
 WSL does not support virtual environments like KVM/QEMU or Docker, but is otherwise a nearly fully-featured "Linux Shell on Windows".
 
@@ -89,14 +110,37 @@ Shen Labs uses GitHub for codebase storage, and GitHub features an automation so
 1. ***NEVER*** run CPU intense jobs on the login node!
 1. Escalated priviledge is not available on Kamiak. 
 
+I recommend `nohup` for the purpose of keeping GitHub Runner service active, `tmux` works as well but resuming an interactive shell may be unneccessary.
+
+`nohup bash -c 'while true; do echo "Runner starting: $(date +%Y-%m-%d-%H%M)"; ./run.sh; sleep 10; done' > "nohup-$(date +%Y-%m-%d-%H%M).log" 2>&1 &`
+
+The above command will start nohup bash session, then a loop which starts the GitHub Runner, sleeps for 10 seconds if the Runner process ends, and then repeats the loop. Log files for tracing the events of nohup will be stored in `nohup-YYYY-MM-DD-HHmm.log`.
+
+```
+√ Connected to GitHub
+
+2026-10-02 05:02:50Z: Runner reconnected.
+Current runner version: '2.337.0'
+2026-10-02 05:02:50Z: Listening for Jobs
+```
+
+
+
 ### Example YAMLs
 `.github/workflows/login_node.yml`
+
+```
+jjhh
+```
 
 `.github/workflows/slurm_job.yml`
 
 `.github/workflows/slurm_job_tty.yml`
 
 
-# If you try, others will stop you
+
+### How to 
 
 I made a github runner today, and it was killed.
+
+Why?
