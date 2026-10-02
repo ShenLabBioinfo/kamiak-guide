@@ -142,7 +142,7 @@ Remember that Kamiak has multiple login nodes! The example ~/.ssh/config in this
 This example shows a job running on the same login node that is runninng GitHub Runner.
 
 ```
-name: Hello World Login Node
+name: hello world login node
 
 on:
   push:
@@ -156,7 +156,7 @@ jobs:
       - run: echo "hello world from $(hostname)"
 ```
 
-`.github/workflows/slurm_job.yml`
+`.github/workflows/srun.yml`
 foo bar
 
 ```
@@ -180,7 +180,7 @@ jobs:
                bash -lc 'echo "hello world from $(hostname)"'
 ```
 
-`.github/workflows/slurm_job_tty.yml`
+`.github/workflows/idev.yml`
 foo bar
 
 ```
