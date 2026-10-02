@@ -107,7 +107,10 @@ managing secrets
 
 Shen Labs uses GitHub for codebase storage, and GitHub features an automation solution called GitHub Actions. When code is pushed to a repo in GitHub, a set of commands can automatically be executed on Kamiak.
 
-1. 
+1. GitHub Actions are executed using **your WSU Kamiak credentials**, so...
+   1. Do not add collaborators to repos with your GitHub Runner
+   1. Do not share your GitHub Runner with anyone or use anyone else's GitHub Runner!
+   1. Disable `Pull Request` in Settings -> General -> Features to prevent others from potentially executing code on your runners (you would still have to accept their PR, but it is still a threat vector).
 1. ***NEVER*** run CPU intense jobs on the login node!
 1. Escalated priviledge is not available on Kamiak. 
 
@@ -127,7 +130,7 @@ Current runner version: '2.337.0'
 2026-10-02 05:02:50Z: Listening for Jobs
 ```
 
-To stop the runner you can run `top -u "$USER"` to identify the PID of the `Runner.Listener` process, and use `pkill n` to kill it (replace n with the PID of Runner.Listener)
+To stop the runner you can run `pkill -u "$USER" -x Runner.Listener`
 
 ### Troubleshooting the Runner
 - Don't see your Runner.Listener process in top but know you ran it?
