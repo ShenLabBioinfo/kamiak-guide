@@ -107,14 +107,17 @@ managing secrets
 
 Shen Labs uses GitHub for codebase storage, and GitHub features an automation solution called GitHub Actions. When code is pushed to a repo in GitHub, a set of commands can automatically be executed on Kamiak.
 
+1. 
 1. ***NEVER*** run CPU intense jobs on the login node!
 1. Escalated priviledge is not available on Kamiak. 
+
+### Start/Stop the Runner
 
 I recommend `nohup` for the purpose of keeping GitHub Runner service active, `tmux` works as well but resuming an interactive shell may be unneccessary.
 
 `nohup bash -c 'while true; do echo "Runner starting: $(date +%Y-%m-%d-%H%M)"; ./run.sh; sleep 10; done' > "nohup-$(date +%Y-%m-%d-%H%M).log" 2>&1 &`
 
-The above command will start nohup bash session, then a loop which starts the GitHub Runner, sleeps for 10 seconds if the Runner process ends, and then repeats the loop. Log files for tracing the events of nohup will be stored in `nohup-YYYY-MM-DD-HHmm.log`.
+The above command will start nohup bash session, then a loop which starts the GitHub Runner, sleeps for 10 seconds if the Runner process ends, and then repeats the loop. Log files for tracing the events of nohup will be stored in `github-runner/nohup-YYYY-MM-DD-HHmm.log`, while the logs for GitHub Runner are stored in the `github-runner/_diag` directory of the GitHub Runner.
 
 ```
 √ Connected to GitHub
@@ -124,7 +127,14 @@ Current runner version: '2.337.0'
 2026-10-02 05:02:50Z: Listening for Jobs
 ```
 
+To stop the runner you can run `top -u "$USER"` to identify the PID of the `Runner.Listener` process, and use `pkill n` to kill it (replace n with the PID of Runner.Listener)
 
+### Troubleshooting the Runner
+- Don't see your Runner.Listener process in top but know you ran it?
+- Is GitHub stating the Runner is :green_circle: Idle?
+- Is your nohup log stating "A session for this runner already exists."?
+
+Remember that Kamiak has multiple login nodes! The example ~/.ssh/config in this document shows you how to log into whichever specific node might be running the process.
 
 ### Example YAMLs
 `.github/workflows/login_node.yml`
