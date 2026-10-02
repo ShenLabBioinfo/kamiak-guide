@@ -137,20 +137,68 @@ To stop the runner you can run `top -u "$USER"` to identify the PID of the `Runn
 Remember that Kamiak has multiple login nodes! The example ~/.ssh/config in this document shows you how to log into whichever specific node might be running the process.
 
 ### Example YAMLs
+
 `.github/workflows/login_node.yml`
+This example shows a job running on the same login node that is runninng GitHub Runner.
 
 ```
-jjhh
+name: Hello World Login Node
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  hello:
+    runs-on: self-hosted
+    steps:
+      - run: echo "hello world from $(hostname)"
 ```
 
 `.github/workflows/slurm_job.yml`
+foo bar
+
+```
+name: Hello World SLURM
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  slurm:
+    runs-on: self-hosted
+    steps:
+      - name: Submit SLURM job
+        run: |
+          srun --job-name=github-actions \
+               --time=00:05:00 \
+               --ntasks=1 \
+               --cpus-per-task=1 \
+               bash -lc 'echo "hello world from $(hostname)"'
+```
 
 `.github/workflows/slurm_job_tty.yml`
+foo bar
 
+```
+name: Run Interactive IDEV
 
+on:
+  push:
+    branches:
+      - '**'
 
-### How to 
-
-I made a github runner today, and it was killed.
-
-Why?
+jobs:
+  idev:
+    runs-on: self-hosted
+    steps:
+      - name: Start IDEV and run commands
+        run: |
+          idev bash -lc '
+            echo "hello world from $(hostname)"
+            exit
+          '
+```
