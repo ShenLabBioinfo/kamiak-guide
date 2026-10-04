@@ -1,0 +1,17 @@
+name: hello world sbatch
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  hello-world-sbatch:
+    runs-on: self-hosted
+    steps:
+      - run: |
+          sbatch \
+            --job-name=github-actions \
+            --ntasks=1 \
+            --cpus-per-task=1 \
+            bash -lc 'echo "hello world from $(hostname)"'

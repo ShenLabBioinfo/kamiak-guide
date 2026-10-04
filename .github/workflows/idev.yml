@@ -1,0 +1,16 @@
+name: hello world idev
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  hello-world-idev:
+    runs-on: self-hosted
+    steps:
+      - run: |
+          idev bash -lc '
+            echo "hello world from $(hostname)"
+            exit
+          '

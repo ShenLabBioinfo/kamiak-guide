@@ -156,7 +156,7 @@ jobs:
 ```
 
 `.github/workflows/srun.yml`
-This example shows a job running on using sbatch.
+This example shows a job running on using `sbatch`.
 
 ```
 name: hello world sbatch
@@ -179,10 +179,10 @@ jobs:
 ```
 
 `.github/workflows/idev.yml`
-foo bar
+This example shows a job running on using `idev`.
 
 ```
-name: Run Interactive IDEV
+name: hello world idev
 
 on:
   push:
