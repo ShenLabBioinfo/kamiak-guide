@@ -15,4 +15,4 @@ jobs:
             --job-name=github-actions \
             --ntasks=1 \
             --cpus-per-task=1 \
-            bash -lc 'echo "hello world from $(hostname)"'
+            srun echo "hello world from $(hostname)"

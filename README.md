@@ -176,7 +176,7 @@ jobs:
             --job-name=github-actions \
             --ntasks=1 \
             --cpus-per-task=1 \
-            bash -lc 'echo "hello world from $(hostname)"'
+            srun echo "hello world from $(hostname)"
 ```
 
 `.github/workflows/idev.yml`
@@ -195,8 +195,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: |
-          idev bash -lc '
+          idev idev -N 2 --ntasks-per-node=1 &&\
             echo "hello world from $(hostname)"
             exit
-          '
 ```

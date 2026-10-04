@@ -10,7 +10,6 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: |
-          idev bash -lc '
+          idev idev -N 2 --ntasks-per-node=1 &&\
             echo "hello world from $(hostname)"
             exit
-          '
