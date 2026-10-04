@@ -10,9 +10,11 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: |
-          sbatch \
-            #!/bin/bash \
-            --job-name=github-actions \
-            --ntasks=1 \
-            --cpus-per-task=1 \
-            srun echo "hello world from $(hostname)"
+          sbatch <<'EOF'
+          #!/bin/bash
+          #SBATCH --job-name=github-actions
+          #SBATCH --ntasks=1
+          #SBATCH --cpus-per-task=1
+
+          echo "hello world from $(hostname)"
+          EOF
