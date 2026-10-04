@@ -6,7 +6,7 @@ on:
       - '**'
 
 jobs:
-  hello-world-login:
+  hello-world-login-node:
     runs-on: self-hosted
     steps:
       - run: echo "hello world from $(hostname)"

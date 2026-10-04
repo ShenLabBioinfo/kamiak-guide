@@ -178,24 +178,3 @@ jobs:
             --cpus-per-task=1 \
             srun echo "hello world from $(hostname)"
 ```
-
-`.github/workflows/idev.yml`
-This example shows a job running on using `idev`.
-
-```
-name: hello world idev
-
-on:
-  push:
-    branches:
-      - '**'
-
-jobs:
-  hello-world-idev:
-    runs-on: self-hosted
-    steps:
-      - run: |
-          idev idev -N 2 --ntasks-per-node=1 &&\
-            echo "hello world from $(hostname)"
-            exit
-```
