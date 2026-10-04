@@ -2,12 +2,13 @@
 
 This repo exists as an extended guide for understanding and using Kamiak.
 
-## Kamiak Architecture
-
-login box is basically a bastion server
-create and show drawing comparison
-
 ## SSH Config with Key Access
+
+Although Kamiak uses Okta for authentication it is cumbersome and unneccessary. Benefits of using ssh config and keypairs include:
+
+- Faster logins
+- Don't need to re-authenticate with Okta every 24 hours
+- Never prompted for passwords
 
 ***Never*** share your private key to anyone for any reason.
 
@@ -94,14 +95,9 @@ Although the Kamiak Quick Guides mention this, I think it bears repeating. PuTTY
 
 WSL does not support virtual environments like KVM/QEMU or Docker, but is otherwise a nearly fully-featured "Linux Shell on Windows".
 
-## Using Git
+## Using GitHub
 
-creating a branch
-using a branch (commit and push)
-merging branches
-branch strategy
-managing secrets
-
+It is highly recommended to use the documented [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow) for branch strategy, and possibly keeping the `main` branch [protected](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
 
 ## GitHub Runner
 
@@ -153,17 +149,17 @@ on:
       - '**'
 
 jobs:
-  hello:
+  hello-world-login:
     runs-on: self-hosted
     steps:
       - run: echo "hello world from $(hostname)"
 ```
 
 `.github/workflows/srun.yml`
-foo bar
+This example shows a job running on using sbatch.
 
 ```
-name: Hello World SLURM
+name: hello world sbatch
 
 on:
   push:
@@ -171,11 +167,10 @@ on:
       - '**'
 
 jobs:
-  slurm:
+  hello-world-sbatch:
     runs-on: self-hosted
     steps:
-      - name: Submit SLURM job
-        run: |
+      - run: |
           srun --job-name=github-actions \
                --time=00:05:00 \
                --ntasks=1 \
@@ -195,11 +190,10 @@ on:
       - '**'
 
 jobs:
-  idev:
+  hello-world-idev:
     runs-on: self-hosted
     steps:
-      - name: Start IDEV and run commands
-        run: |
+      - run: |
           idev bash -lc '
             echo "hello world from $(hostname)"
             exit
