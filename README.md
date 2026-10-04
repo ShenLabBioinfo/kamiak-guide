@@ -106,7 +106,7 @@ Shen Labs uses GitHub for codebase storage, and GitHub features an automation so
 1. GitHub Actions are executed using **your WSU Kamiak credentials**, so...
    1. Do not add collaborators to repos with your GitHub Runner
    1. Do not share your GitHub Runner with anyone or use anyone else's GitHub Runner!
-   1. Disable `Pull Request` in Settings -> General -> Features to prevent others from potentially executing code on your runners (you would still have to accept their PR, but it is still a threat vector).
+   1. Restrict `Pull Request` to `Collaborators only` in Settings -> General -> Features to prevent others from executing code on your runners (you would still have to accept their PR, but it is still a potential threat vector).
 1. ***NEVER*** run CPU intense jobs on the login node!
 1. Escalated priviledge is not available on Kamiak. 
 
