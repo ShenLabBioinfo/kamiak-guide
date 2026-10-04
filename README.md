@@ -143,19 +143,19 @@ This example shows a job running on the same login node that is runninng GitHub 
 ```
 name: hello world login node
 
-on:d
+on:
   push:
     branches:
       - '**'
 
 jobs:
-  hello-world-login:
+  hello-world-login-node:
     runs-on: self-hosted
     steps:
       - run: echo "hello world from $(hostname)"
 ```
 
-`.github/workflows/srun.yml`
+`.github/workflows/sbatch.yml`
 This example shows a job running on using `sbatch`.
 
 ```
@@ -172,9 +172,18 @@ jobs:
     steps:
       - run: |
           sbatch \
-            #!/bin/bash \
-            --job-name=github-actions \
-            --ntasks=1 \
-            --cpus-per-task=1 \
-            srun echo "hello world from $(hostname)"
+            --output="$HOME/myJob_%j.out" \
+            --error="$HOME/myJob_%j.err" \
+            <<'EOF'
+          #!/bin/bash
+
+          #SBATCH --partition=kamiak
+          #SBATCH --job-name=hello-world-batch
+          #SBATCH --nodes=1
+          #SBATCH --ntasks-per-node=1
+          #SBATCH --ntasks=1
+          #SBATCH --cpus-per-task=1
+
+          echo "hello world from $(hostname)"
+          EOF
 ```
