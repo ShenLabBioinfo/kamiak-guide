@@ -15,8 +15,6 @@ jobs:
 
           #SBATCH --partition=kamiak
           #SBATCH --job-name=hello-world-batch
-          #SBATCH --output=~/myJob_%j.out
-          #SBATCH --error=~/myJob_%j.err
           #SBATCH --nodes=1
           #SBATCH --ntasks-per-node=1
           #SBATCH --ntasks=1
