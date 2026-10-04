@@ -172,6 +172,7 @@ jobs:
     steps:
       - run: |
           sbatch \
+            #!/bin/bash \
             --job-name=github-actions \
             --ntasks=1 \
             --cpus-per-task=1 \
