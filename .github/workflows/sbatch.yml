@@ -1,0 +1,27 @@
+name: hello world sbatch
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  hello-world-sbatch:
+    runs-on: self-hosted
+    steps:
+      - run: |
+          sbatch \
+            --output="$HOME/myJob_%j.out" \
+            --error="$HOME/myJob_%j.err" \
+            <<'EOF'
+          #!/bin/bash
+
+          #SBATCH --partition=kamiak
+          #SBATCH --job-name=hello-world-batch
+          #SBATCH --nodes=1
+          #SBATCH --ntasks-per-node=1
+          #SBATCH --ntasks=1
+          #SBATCH --cpus-per-task=1
+
+          echo "hello world from $(hostname)"
+          EOF
