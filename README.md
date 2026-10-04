@@ -143,7 +143,7 @@ This example shows a job running on the same login node that is runninng GitHub 
 ```
 name: hello world login node
 
-on:
+on:d
   push:
     branches:
       - '**'
