@@ -171,11 +171,11 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: |
-          srun --job-name=github-actions \
-               --time=00:05:00 \
-               --ntasks=1 \
-               --cpus-per-task=1 \
-               bash -lc 'echo "hello world from $(hostname)"'
+          sbatch \
+            --job-name=github-actions \
+            --ntasks=1 \
+            --cpus-per-task=1 \
+            bash -lc 'echo "hello world from $(hostname)"'
 ```
 
 `.github/workflows/idev.yml`
