@@ -14,14 +14,14 @@ jobs:
             --output="$HOME/myJob_%j.out" \
             --error="$HOME/myJob_%j.err" \
             <<'EOF'
-            #!/bin/bash
+              #!/bin/bash
 
-            #SBATCH --partition=kamiak
-            #SBATCH --job-name=hello-world-batch
-            #SBATCH --nodes=1
-            #SBATCH --ntasks-per-node=1
-            #SBATCH --ntasks=1
-            #SBATCH --cpus-per-task=1
+              #SBATCH --partition=kamiak
+              #SBATCH --job-name=hello-world-batch
+              #SBATCH --nodes=1
+              #SBATCH --ntasks-per-node=1
+              #SBATCH --ntasks=1
+              #SBATCH --cpus-per-task=1
 
-            echo "hello world from $(hostname)"
-            EOF
+              echo "hello world from $(hostname)"
+              EOF
