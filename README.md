@@ -7,8 +7,8 @@ This repo exists as an extended guide for understanding and using Kamiak.
 Although Kamiak uses Okta for authentication it is cumbersome and unneccessary. Benefits of using ssh config and keypairs include:
 
 - Faster logins
-- Don't need to re-authenticate with Okta every 24 hours
 - Never prompted for passwords
+- Don't need to re-authenticate with Okta every 24 hours
 
 ***Never*** share your private key to anyone for any reason.
 
@@ -27,10 +27,10 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBKmE91MTACCxpMz6X8ZbtDtvZwnCRGLc0QcQ9nEnyKn
 
 ### creating a private and public key pair
 ```
-ssh-keygen -t ed25519 -f ~/.ssh/YOUR_NAME_YEAR_key -C "YOUR_EMAIL@wsu.edu"
+ssh-keygen -t ed25519 -f ~/.ssh/YOUR_NAME_PROJECT_YEAR_key -C "YOUR_EMAIL@wsu.edu"
 
 # example
-ssh-keygen -t ed25519 -f ~/.ssh/jeremy_2026_key -C "jeremy.banks@wsu.edu"
+ssh-keygen -t ed25519 -f ~/.ssh/jeremy_kamiak_2026_key -C "jeremy.banks@wsu.edu"
 ```
 
 ### creating a ssh config
@@ -45,40 +45,40 @@ chmod 600 ~/.ssh/config
 Host github.com
     HostName github.com
     User git
-    IdentityFile ~/.ssh/jeremy_2026_key
+    IdentityFile ~/.ssh/jeremy_github_2026_key
     IdentitiesOnly yes
 
 Host kamiak
     HostName kamiak.wsu.edu
     User jeremy.banks
-    IdentityFile ~/.ssh/jeremy_2026_key
+    IdentityFile ~/.ssh/jeremy_kamiak_2026_key
     IdentitiesOnly yes
 
 Host kamiak-p3n01
     HostName login-p3n01.kamiak.wsu.edu
     User jeremy.banks
-    IdentityFile ~/.ssh/jeremy_key
+    IdentityFile ~/.ssh/jeremy_kamiak_2026_key
     IdentitiesOnly yes
 
 Host kamiak-p3n02
     HostName login-p3n02.kamiak.wsu.edu
     User jeremy.banks
-    IdentityFile ~/.ssh/jeremy_key
+    IdentityFile ~/.ssh/jeremy_kamiak_2026_key
     IdentitiesOnly yes
 
 Host kamiak-p3n03
     HostName login-p3n03.kamiak.wsu.edu
     User jeremy.banks
-    IdentityFile ~/.ssh/jeremy_key
+    IdentityFile ~/.ssh/jeremy_kamiak_2026_key
     IdentitiesOnly yes
 ```
 
 ### sharing your pub file with kamiak
 ```
-ssh-copy-id -i ~/.ssh/YOUR_NAME_2026.pub kamiak
-ssh-copy-id -i ~/.ssh/YOUR_NAME_2026.pub kamiak-p3n01
-ssh-copy-id -i ~/.ssh/YOUR_NAME_2026.pub kamiak-p3n02
-ssh-copy-id -i ~/.ssh/YOUR_NAME_2026.pub kamiak-p3n03
+ssh-copy-id -i ~/.ssh/YOUR_NAME_PROJECT_2026.pub kamiak
+ssh-copy-id -i ~/.ssh/YOUR_NAME_PROJECT_2026.pub kamiak-p3n01
+ssh-copy-id -i ~/.ssh/YOUR_NAME_PROJECT_2026.pub kamiak-p3n02
+ssh-copy-id -i ~/.ssh/YOUR_NAME_PROJECT_2026.pub kamiak-p3n03
 ```
 
 ### Rotating 
@@ -157,6 +157,8 @@ jobs:
 
 `.github/workflows/sbatch.yml`
 This example shows a job running on using `sbatch`.
+
+Note the output and error absolute paths will send logs to your home directory.
 
 ```
 name: hello world sbatch
