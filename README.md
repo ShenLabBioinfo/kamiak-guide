@@ -4,33 +4,32 @@ This repo exists as an extended guide for understanding and using Kamiak.
 
 ## SSH Config with Key Access
 
-Although Kamiak uses Okta for authentication it is cumbersome and unneccessary. Benefits of using ssh config and keypairs include:
+Although Kamiak uses Okta for authenticating passwords and multi-factor, it is cumbersome and unneccessary to use compared to ssh config and keypairs. Benefits include:
 
 - Faster logins
 - Never prompted for passwords
-- Don't need to re-authenticate with Okta every 24 hours
-
-***Never*** share your private key to anyone for any reason.
-
-The `.pub` file is meant to be shared.
-
-```
-# example private key file
------BEGIN OPENSSH PRIVATE KEY-----
-b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gt
-ZWQyNTUxOQAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
------END OPENSSH PRIVATE KEY-----
-
-# example pub key file
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBKmE91MTACCxpMz6X8ZbtDtvZwnCRGLc0QcQ9nEnyKn your_email@example.com
-```
+- Don't need to re-authenticate every 24 hours
 
 ### creating a private and public key pair
+It is best to create a keypair in a space where you have complete privacy to avoid anyone seeing or recording your private key. ***Never*** share your private key to anyone for any reason. The `.pub` file is the only file meant to be shared.
+
 ```
 ssh-keygen -t ed25519 -f ~/.ssh/YOUR_NAME_PROJECT_YEAR_key -C "YOUR_EMAIL@wsu.edu"
 
 # example
 ssh-keygen -t ed25519 -f ~/.ssh/jeremy_kamiak_2026_key -C "jeremy.banks@wsu.edu"
+```
+
+#### example private key file
+```
+-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gt
+ZWQyNTUxOQAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+-----END OPENSSH PRIVATE KEY-----
+```
+#### example pub key file
+```
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBKmE91MTACCxpMz6X8ZbtDtvZwnCRGLc0QcQ9nEnyKn your_email@example.com
 ```
 
 ### creating a ssh config
