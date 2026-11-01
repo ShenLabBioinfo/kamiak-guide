@@ -1,0 +1,29 @@
+name: clear notebook outputs
+
+on:
+  push:
+
+permissions:
+  contents: write
+
+jobs:
+  clear-notebook-outputs:
+    runs-on: self-hosted
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v7
+
+      - name: setup python
+        uses: actions/setup-python@v7
+
+      - name: install jupyter and nbconvert
+        run: pip install jupyter nbconvert
+
+      - name: clear notebook file outputs
+        run: find . -name '*.ipynb' -exec jupyter nbconvert --clear-output --inplace {} \;
+
+      - name: commit cleared notebook files
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "automated clear notebooks outputs action"
+          file_pattern: '*.ipynb'
