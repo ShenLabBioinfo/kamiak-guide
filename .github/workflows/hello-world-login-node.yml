@@ -2,8 +2,6 @@ name: hello world login node
 
 on:
   push:
-    branches:
-      - '**'
 
 jobs:
   hello-world-login-node:

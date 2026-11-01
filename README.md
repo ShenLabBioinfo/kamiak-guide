@@ -136,55 +136,13 @@ Remember that Kamiak has multiple login nodes! The example ~/.ssh/config in this
 
 ### Example YAMLs
 
-`.github/workflows/login_node.yml`
+`.github/workflows/hello-world-login-node.yml`
 This example shows a job running on the same login node that is runninng GitHub Runner.
 
-```
-name: hello world login node
-
-on:
-  push:
-    branches:
-      - '**'
-
-jobs:
-  hello-world-login-node:
-    runs-on: self-hosted
-    steps:
-      - run: echo "hello world from $(hostname)"
-```
-
-`.github/workflows/sbatch.yml`
+`.github/workflows/hello-world-sbatch.yml`
 This example shows a job running on using `sbatch`.
 
 Note the output and error absolute paths will send logs to your home directory.
 
-```
-name: hello world sbatch
-
-on:
-  push:
-    branches:
-      - '**'
-
-jobs:
-  hello-world-sbatch:
-    runs-on: self-hosted
-    steps:
-      - run: |
-          sbatch \
-            --output="$HOME/myJob_%j.out" \
-            --error="$HOME/myJob_%j.err" \
-            <<'EOF'
-          #!/bin/bash
-
-          #SBATCH --partition=kamiak
-          #SBATCH --job-name=hello-world-batch
-          #SBATCH --nodes=1
-          #SBATCH --ntasks-per-node=1
-          #SBATCH --ntasks=1
-          #SBATCH --cpus-per-task=1
-
-          echo "hello world from $(hostname)"
-          EOF
-```
+`.github/workflows/sync-code.yml`
+This example will sync code from your repo to kamiak after any new code is pushed, and create a symlink on your home directory for each access.

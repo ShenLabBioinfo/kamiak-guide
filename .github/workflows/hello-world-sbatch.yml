@@ -2,8 +2,6 @@ name: hello world sbatch
 
 on:
   push:
-    branches:
-      - '**'
 
 jobs:
   hello-world-sbatch:

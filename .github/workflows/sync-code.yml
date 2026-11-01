@@ -1,0 +1,16 @@
+name: sync code
+
+on:
+  push:
+
+jobs:
+  sync-code:
+    runs-on: self-hosted
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v7
+        with:
+          clean: true
+
+      - name: create symlink
+        run: ln -sfn "$GITHUB_WORKSPACE" "$HOME/${{ github.event.repository.name }}"
