@@ -136,13 +136,14 @@ Remember that Kamiak has multiple login nodes! The example ~/.ssh/config in this
 
 ### Example YAMLs
 
-`.github/workflows/hello-world-login-node.yml`
-This example shows a job running on the same login node that is runninng GitHub Runner.
+`.github/workflows/hello-world-login-node.yml` This example shows a job running on the same login node that is runninng GitHub Runner.
 
-`.github/workflows/hello-world-sbatch.yml`
-This example shows a job running on using `sbatch`.
+`.github/workflows/hello-world-sbatch.yml` This example shows a job running on using `sbatch`.
 
 Note the output and error absolute paths will send logs to your home directory.
 
-`.github/workflows/sync-code.yml`
-This example will sync code from your repo to kamiak after any new code is pushed, and create a symlink on your home directory for each access.
+`.github/workflows/sync-code.yml` This example will sync code from your repo to kamiak after any new code is pushed, and create a symlink on your home directory for each access.
+
+`.github/workflows/clear-notebook-outputs.yml` Notebook outputs could potentially store derivatives of or actual PII or PHI.
+This example will scan your repo for any jupyter notebook files which have outputs, clear those outputs, and then push those changes back to the same commit. This ensures the repo history with notebook outputs is overwritten and not appended in git history.
+If any notebook has been cleareds you will get an email starting you need to run `git fetch -a && git rebase && git pull`
