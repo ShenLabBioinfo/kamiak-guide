@@ -1,0 +1,41 @@
+name: notebook outputs clear
+
+on:
+  push:
+
+permissions:
+  contents: write
+
+jobs:
+  notebook-outputs-clear:
+    runs-on: self-hosted
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v7
+
+      - name: setup python
+        uses: actions/setup-python@v7
+
+      - name: install jupyter and nbconvert
+        run: pip install jupyter nbconvert
+
+      - name: clear notebook file outputs
+        run: find . -name '*.ipynb' -exec jupyter nbconvert --clear-output --inplace {} \;
+
+      - name: amend commit with cleared notebook files
+        id: auto_commit
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "automated clear notebooks outputs action"
+          commit_options: '--amend --no-edit'
+          file_pattern: '*.ipynb'
+          push_options: '--force'
+          skip_fetch: true
+
+      - name: clean repo
+        run: git clean -ffdx
+
+      - name: email notification
+        if: steps.auto_commit.outputs.changes_detected == 'true'
+        run: |
+          echo "notebook output has been automatically cleared from ${{ github.event.repository.name }} / ${{ github.ref_name }}, please run 'git fetch -a && git rebase && git pull' before commiting or pushing more code to it" | mailx -s "${{ github.event.repository.name }} / ${{ github.ref_name }}" -S smtp=smtp://smtp.wsu.edu ${USER}@wsu.edu
