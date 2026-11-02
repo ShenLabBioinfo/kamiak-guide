@@ -1,4 +1,4 @@
-name: clear notebook outputs
+name: notebook outputs clear
 
 on:
   push:
@@ -7,7 +7,7 @@ permissions:
   contents: write
 
 jobs:
-  clear-notebook-outputs:
+  notebook-outputs-clear:
     runs-on: self-hosted
     steps:
       - name: checkout code
